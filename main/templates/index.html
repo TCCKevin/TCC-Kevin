@@ -1,0 +1,847 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+<style>
+  form {
+      max-width: 900px;
+      display: block;
+      margin: 0 auto;
+  }
+  body {
+      background-color: #9fa8f3;
+  }
+  h1 {
+      font-size: 50;
+      margin: 0 auto;
+      margin-top: 20px;
+      text-align: center;
+      color: black;
+      text-shadow:
+          -1px -1px 0px rgb(255, 255, 255), 
+          -1px 1px 0px rgb(255, 255, 255),                    
+          1px -1px 0px rgb(255, 255, 255),                  
+          1px 0px 0px rgb(255, 255, 255);
+  }
+  ul1 {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+  ul2 {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  ul3 {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    left: 0px;
+    top: 350px;
+  }
+  ul4 {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    right: 0px;
+    top: 350px;
+  }
+  ul5 {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    left: 0px;
+    top: 800px;
+  }
+  ul6 {
+    list-style: none;
+    display: flex;
+    position: absolute;
+    right: 0px;
+    top: 800px;
+  }
+
+</style>
+
+<title> TCC Kevin </title>
+
+<html>
+<body>  
+    <h1><b> Análise de fadiga em eixos de transmissão </b></h1>
+<!--
+    <ul1>
+      <li> 
+        <img src="https://www.rolamentosbr.com.br/media/sig_DbCnlx9yPM/categorias/eixos/eixos-07.jpeg" width="450" height="350" alt="Eixo de transmissão">
+      </li>
+    </ul1>
+    
+    <ul2>
+      <li> 
+        <img src="https://www.rolamentobrasil.com.br/media/sig_01PvbOF3mz/categorias/eixos/eixos-06.jpeg" width="450" height="350" alt="Eixo de transmissão">
+      </li>
+    </ul2>
+
+    <ul3>
+      <li> 
+        <img src="https://www.rolamentosbr.com.br/media/sig_DbCnlx9yPM/categorias/eixos/eixos-01.jpeg" width="450" height="450" alt="Eixo de transmissão">
+      </li>
+    </ul3>
+
+    <ul4>
+      <li> 
+        <img src="https://d3mi7368052s1h.cloudfront.net/Custom/Content/Products/10/07/1007345_eixo-principal-de-aco-da-transmis-239785_m2_637274613869535150.png" width="450" height="450" alt="Eixo de transmissão">
+      </li>
+    </ul4>
+
+    <ul5>
+      <li> 
+        <img src="https://www.autoserviceprofessional.com/ext/resources/legacy_articles/cv-joint-tech-a-primer-on-constant-velocity-drive-joints-and-diagnostic-tips.jpg" width="450" height="450" alt="Eixo de transmissão">
+      </li>
+    </ul5>
+
+    <ul6>
+      <li> 
+        <img src="https://www.rolamentosbr.com.br/media/sig_DbCnlx9yPM/categorias/eixos/eixos-02.jpeg" width="450" height="450" alt="Eixo de transmissão">
+      </li>
+    </ul6>
+-->
+<form class="p-3" action="results" method="POST">
+  {% csrf_token %}
+
+    <div class="form-group">
+        <label for="pergunta_1"> Escolha o tipo de geometria no ressalto </label>
+        <select class="form-control" id="pergunta_1" name="ressalto" value="0">
+              <option value="1"> Arredondamento no ressalto </option>
+              <option value="2"> Sulco no ressalto </option>
+              <option value="3"> Canal de fundo plano </option>
+              <option value="4"> Assento de chaveta de extremidade fresada r/d = 0,02 </option>
+        </select>
+      </div>
+      
+      <div class="form-group" id="resposta_1_1Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_1_1"> Digite o diâmetro da seção vizinha [mm] </label>
+            <input type="float" class="form-control w-100" id="campo1_1_1" name="d_vizinha" value="0">
+          </div>
+          <div class="col-6">
+            <label for="campo2_1_1"> Digite o raio do entalhe [mm] </label>
+            <input type="float" class="form-control w-100" id="campo2_1_1" name="r_entalhe1">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" id="resposta_1_2Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_1_2"> Digite a profundidade do sulco no eixo [mm] </label>
+            <input type="float" class="form-control w-100" id="campo1_1_2" name="p_sulco" value="0">
+          </div>
+          <div class="col-6">
+            <label for="campo2_1_2"> Digite o raio do entalhe [mm] </label>
+            <input type="float" class="form-control w-100" id="campo2_1_2" name="r_entalhe2">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" id="resposta_1_3Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_1_3"> Digite a largura do canal de anel retentor [mm] </label>
+            <input type="float" class="form-control w-100" id="campo1_1_3" name="l_canal" value="0">
+          </div>
+          <div class="col-6">
+            <label for="campo2_1_3"> Digite a profundidade do canal de anel retentor [mm] </label>
+            <input type="float" class="form-control w-100" id="campo2_1_3" name="p_canal" value="0">
+          </div>
+          <div class="col-6">
+            <label for="campo3_1_3"> Digite o raio do entalhe [mm] </label>
+            <input type="float" class="form-control w-100" id="campo3_1_3" name="r_entalhe3" value="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pergunta_2"> Escolha o acabamento superficial </label>
+        <select class="form-control" id="pergunta_2" name="acabamento" value="0">
+              <option value="1"> Retificado </option>
+              <option value="2"> Usinado / Laminado a frio </option>
+              <option value="3"> Laminado a quente </option>
+              <option value="4"> Forjado </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="pergunta_3"> Escolha a temperatura </label>
+        <select class="form-control" id="pergunta_3" name="temperatura" value="0">
+              <option value="1"> 20 °C </option>
+              <option value="2"> 50 °C </option>
+              <option value="3"> 100 °C </option>
+              <option value="4"> 150 °C </option>
+              <option value="5"> 200 °C </option>
+              <option value="6"> 250 °C </option>
+              <option value="7"> 300 °C </option>
+              <option value="8"> 350 °C </option>
+              <option value="9"> 400 °C </option>
+              <option value="10"> 450 °C </option>
+              <option value="11"> 500 °C </option>
+              <option value="12"> 550 °C </option>
+              <option value="13"> 600 °C </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="pergunta_4"> Escolha a confiabilidade </label>
+        <select class="form-control" id="pergunta_4" name="confiabilidade" value="0">
+              <option value="1"> 50% </option>
+              <option value="2"> 90% </option>
+              <option value="3"> 95% </option>
+              <option value="4"> 99% </option>
+              <option value="5"> 99.9% </option>
+              <option value="6"> 99.99% </option>
+              <option value="7"> 99.999% </option>
+              <option value="8"> 99.9999% </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="pergunta_5"> Escolha o tipo de carga </label>
+        <select class="form-control" id="pergunta_5" name="carga" value="0">
+              <option value="1"> Flexão pura </option>
+              <option value="2"> Torção pura </option>
+              <option value="3"> Flexão e torção </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="pergunta_6"> O eixo está em equilíbrio? </label>
+        <select class="form-control" id="pergunta_6" name="equilibrio" value="0">
+              <option value="1"> Sim </option>
+              <option value="2"> Não </option>
+        </select>
+      </div>
+
+      <!- Flexão Pura e Equilíbrio: Sim ->
+      <div class="form-group" id="resposta_2_1Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_2_1"> Digite a componente alternada do momento fletor [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo1_2_1" name="alt_momento1">
+          </div>
+        </div>
+      </div>
+
+      <!- Torção Pura e Equilíbrio: Sim ->
+      <div class="form-group" id="resposta_2_2Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_2_2"> Digite a componente média do torque [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo1_2_2" name="media_torque2">
+          </div>
+        </div>
+      </div>
+
+      <!- Flexão e Torção e Equilíbrio: Sim ->
+      <div class="form-group" id="resposta_2_3Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_2_3"> Digite a componente alternada do momento fletor [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo1_2_3" name="alt_momento3">
+          </div>
+          <div class="col-6">
+            <label for="campo2_2_3"> Digite a componente média do torque [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo2_2_3" name="media_torque3">
+          </div>
+        </div>
+      </div>
+
+      <!- Flexão pura e Equilíbrio: Não ->
+      <div class="form-group" id="resposta_2_4Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_2_4"> Digite a componente média do momento fletor [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo1_2_4" name="media_momento4">
+          </div>
+          <div class="col-6">
+            <label for="campo2_2_4"> Digite a componente alternada do momento fletor [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo2_2_4" name="alt_momento4">
+          </div>
+        </div>
+      </div>
+
+      <!- Torção pura e Equilíbrio: Não ->
+      <div class="form-group" id="resposta_2_5Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_2_5"> Digite a componente média do torque [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo1_2_5" name="media_torque5">
+          </div>
+          <div class="col-6">
+            <label for="campo2_2_5"> Digite a componente alternada do torque [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo2_2_5" name="alt_torque5">
+          </div>
+        </div>
+      </div>
+
+      <!- Torção pura e Equilíbrio: Não ->
+      <div class="form-group" id="resposta_2_6Div">
+        <div class="row">
+          <div class="col-6">
+            <label for="campo1_2_6"> Digite a componente média do momento fletor [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo1_2_6" name="media_momento6">
+          </div>
+          <div class="col-6">
+            <label for="campo2_2_6"> Digite a componente alternada do momento fletor [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo2_2_6" name="alt_momento6">
+          </div>
+          <div class="col-6">
+            <label for="campo3_2_6"> Digite a componente média do torque [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo3_2_6" name="media_torque6">
+          </div>
+          <div class="col-6">
+            <label for="campo4_2_6"> Digite a componente alternada do torque [N.m] </label>
+            <input type="float" class="form-control w-100" id="campo4_2_6" name="alt_torque6">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pergunta_7"> Escolha o material </label>
+        <select class="form-control" id="pergunta_7" name="material" value="0">
+              <option value="1"> Aço SAE 1020 </option>
+              <option value="2"> Aço SAE 1030 </option>
+              <option value="3"> Aço SAE 1040 </option>
+              <option value="4"> Aço SAE 1045 </option>
+              <option value="5"> Aço SAE 1060 </option>
+              <option value="6"> Aço SAE 1080 </option>
+              <option value="7"> Aço SAE 4130 </option>
+              <option value="8"> Aço SAE 4140 </option>
+              <option value="9"> Aço SAE 4320 </option>
+              <option value="10"> Aço SAE 4340 </option>
+              <option value="11"> Ferro fundido ASTM A48 Classe 20 </option>
+              <option value="12"> Ferro fundido ASTM A48 Classe 40 </option>
+              <option value="13"> Ferro fundido ASTM A48 Classe 60 </option>
+              <option value="14"> Ferro fundido ASTM A536 Classe 60-40-18 </option>
+              <option value="15"> Ferro fundido ASTM A536 Classe 80-55-06 </option>
+              <option value="16"> Ferro fundido ASTM A536 Classe 120-90-02 </option>
+              <option value="17"> Digitar os valores de tensão manualmente </option>
+        </select>
+      </div>
+
+      <div class="form-group" id="pergunta_11">
+        <div class="row">
+          <div class="col-6">
+            <label for="pergunta_11"> Digite a tensão última do material [MPa] </label>
+            <input type="float" class="form-control w-100" id="pergunta_11_1" name="Sut" value="0">
+          </div>
+          <div class="col-6">
+            <label for="pergunta_11"> Digite a tensão de escoamento do material [MPa] </label>
+            <input type="float" class="form-control w-100" id="pergunta_11_2" name="Sy" value="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pergunta_8"> O que você deseja obter? </label>
+        <select class="form-control" id="pergunta_8" name="decide" value="0">
+              <option value="1"> Fator de segurança, com diâmetro conhecido </option>
+              <option value="2"> Diâmetro, com fator de segurança conhecido </option>
+              <option value="3"> Resultado de todos os critérios para fator de segurança </option>
+              <option value="4"> Resultado de todos os critérios para diâmetro </option>
+              <option value="5"> Validar um fator de segurança, com diâmetro escolhido </option>
+              <option value="6"> Validar um diâmetro, com fator de segurança escolhido </option>
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label for="pergunta_9"> Digite o diâmetro da seção analisada (ou sua estimativa) [mm] </label>
+        <input type="float" class="form-control" id="pergunta_9" name="d_inicial" value="0">
+      </div>
+
+      <div class="form-group" id="pergunta_10">
+        <label for="pergunta_10"> Digite o fator de segurança mínimo tolerável </label>
+        <input type="float" class="form-control" id="pergunta_10" name="n_seg" value="0">
+      </div>
+
+      <button type="submit" class="btn btn-primary"> Enviar </button>
+    </form>
+
+<script>
+
+  $("#pergunta_1").change(function() {
+if ($(this).val() == "1") {
+  $('#resposta_1_1Div').show();
+  $('#resposta_1_1').attr('required', '');
+  $('#resposta_1_1').attr('data-error', 'This field is required.');
+
+  $('#resposta_1_2Div').hide();
+  $('#resposta_1_2').removeAttr('required');
+  $('#resposta_1_2').removeAttr('data-error');
+
+  $('#resposta_1_3Div').hide();
+  $('#resposta_1_3').removeAttr('required');
+  $('#resposta_1_3').removeAttr('data-error');
+}
+else if ($(this).val() == "2") {
+  $('#resposta_1_2Div').show();
+  $('#resposta_1_2').attr('required', '');
+  $('#resposta_1_2').attr('data-error', 'This field is required.');
+
+  $('#resposta_1_1Div').hide();
+  $('#resposta_1_1').removeAttr('required');
+  $('#resposta_1_1').removeAttr('data-error');
+
+  $('#resposta_1_3Div').hide();
+  $('#resposta_1_3').removeAttr('required');
+  $('#resposta_1_3').removeAttr('data-error');
+}
+else if ($(this).val() == "3") {
+  $('#resposta_1_3Div').show();
+  $('#resposta_1_3').attr('required', '');
+  $('#resposta_1_3').attr('data-error', 'This field is required.');
+
+  $('#resposta_1_1Div').hide();
+  $('#resposta_1_1').removeAttr('required');
+  $('#resposta_1_1').removeAttr('data-error');
+
+  $('#resposta_1_2Div').hide();
+  $('#resposta_1_2').removeAttr('required');
+  $('#resposta_1_2').removeAttr('data-error');
+}
+else {
+  $('#resposta_1_1Div').hide();
+  $('#resposta_1_1').removeAttr('required');
+  $('#resposta_1_1').removeAttr('data-error');
+
+  $('#resposta_1_2Div').hide();
+  $('#resposta_1_2').removeAttr('required');
+  $('#resposta_1_2').removeAttr('data-error');
+
+  $('#resposta_1_3Div').hide();
+  $('#resposta_1_3').removeAttr('required');
+  $('#resposta_1_3').removeAttr('data-error');
+}
+});
+$("#pergunta_1").trigger("change");
+
+
+
+  $("#pergunta_5").change(function() {
+if ($(this).val() == "1" && $(pergunta_6).val() == "1") {
+  $('#resposta_2_1Div').show();
+  $('#resposta_2_1').attr('required', '');
+  $('#resposta_2_1').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "2" && $(pergunta_6).val() == "1") {
+  $('#resposta_2_2Div').show();
+  $('#resposta_2_2').attr('required', '');
+  $('#resposta_2_2').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "3" && $(pergunta_6).val() == "1") {
+  $('#resposta_2_3Div').show();
+  $('#resposta_2_3').attr('required', '');
+  $('#resposta_2_3').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "1" && $(pergunta_6).val() == "2") {
+  $('#resposta_2_4Div').show();
+  $('#resposta_2_4').attr('required', '');
+  $('#resposta_2_4').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "2" && $(pergunta_6).val() == "2") {
+  $('#resposta_2_5Div').show();
+  $('#resposta_2_5').attr('required', '');
+  $('#resposta_2_5').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "3" && $(pergunta_6).val() == "2") {
+  $('#resposta_2_6Div').show();
+  $('#resposta_2_6').attr('required', '');
+  $('#resposta_2_6').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+}
+else {
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+});
+$("#pergunta_5").trigger("change");
+
+
+
+$("#pergunta_6").change(function() {
+if ($(this).val() == "1" && $(pergunta_5).val() == "1") {
+  $('#resposta_2_1Div').show();
+  $('#resposta_2_1').attr('required', '');
+  $('#resposta_2_1').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "1" && $(pergunta_5).val() == "2") {
+  $('#resposta_2_2Div').show();
+  $('#resposta_2_2').attr('required', '');
+  $('#resposta_2_2').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "1" && $(pergunta_5).val() == "3") {
+  $('#resposta_2_3Div').show();
+  $('#resposta_2_3').attr('required', '');
+  $('#resposta_2_3').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "2" && $(pergunta_5).val() == "1") {
+  $('#resposta_2_4Div').show();
+  $('#resposta_2_4').attr('required', '');
+  $('#resposta_2_4').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "2" && $(pergunta_5).val() == "2") {
+  $('#resposta_2_5Div').show();
+  $('#resposta_2_5').attr('required', '');
+  $('#resposta_2_5').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+else if ($(this).val() == "2" && $(pergunta_5).val() == "3") {
+  $('#resposta_2_6Div').show();
+  $('#resposta_2_6').attr('required', '');
+  $('#resposta_2_6').attr('data-error', 'This field is required.');
+
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+}
+else {
+  $('#resposta_2_1Div').hide();
+  $('#resposta_2_1').removeAttr('required');
+  $('#resposta_2_1').removeAttr('data-error');
+
+  $('#resposta_2_2Div').hide();
+  $('#resposta_2_2').removeAttr('required');
+  $('#resposta_2_2').removeAttr('data-error');
+
+  $('#resposta_2_3Div').hide();
+  $('#resposta_2_3').removeAttr('required');
+  $('#resposta_2_3').removeAttr('data-error');
+
+  $('#resposta_2_4Div').hide();
+  $('#resposta_2_4').removeAttr('required');
+  $('#resposta_2_4').removeAttr('data-error');
+
+  $('#resposta_2_5Div').hide();
+  $('#resposta_2_5').removeAttr('required');
+  $('#resposta_2_5').removeAttr('data-error');
+
+  $('#resposta_2_6Div').hide();
+  $('#resposta_2_6').removeAttr('required');
+  $('#resposta_2_6').removeAttr('data-error');
+}
+});
+$("#pergunta_6").trigger("change");
+
+$("#pergunta_7").change(function() {
+if ($(this).val() == "17") {
+  $('#pergunta_11').show();
+  $('#pergunta_11').attr('required', '');
+  $('#pergunta_11').attr('data-error', 'This field is required.');
+}
+else {
+  $('#pergunta_11').hide();
+  $('#pergunta_11').removeAttr('required');
+  $('#pergunta_11').removeAttr('data-error');
+}
+});
+$("#pergunta_7").trigger("change");
+
+$("#pergunta_8").change(function() {
+if ($(this).val() == "1") {
+  $('#pergunta_10').hide();
+  $('#pergunta_10').removeAttr('required');
+  $('#pergunta_10').removeAttr('data-error');
+}
+else if ($(this).val() == "2") {
+  $('#pergunta_10').show();
+  $('#pergunta_10').attr('required', '');
+  $('#pergunta_10').attr('data-error', 'This field is required.');
+}
+else if ($(this).val() == "3") {
+  $('#pergunta_10').hide();
+  $('#pergunta_10').removeAttr('required');
+  $('#pergunta_10').removeAttr('data-error');
+}
+else if ($(this).val() == "4") {
+  $('#pergunta_10').show();
+  $('#pergunta_10').attr('required', '');
+  $('#pergunta_10').attr('data-error', 'This field is required.');
+}
+else {
+  $('#pergunta_10').show();
+  $('#pergunta_10').attr('required', '');
+  $('#pergunta_10').attr('data-error', 'This field is required.');
+}
+});
+$("#pergunta_8").trigger("change");
+
+</script>
+
+</body>
+</html>
+
+{% endblock %}

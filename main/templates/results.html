@@ -1,0 +1,137 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    form {
+        max-width: 300px;
+        margin: 50 auto;
+        text-align: center;
+    }
+    body {
+        max-width: 1500px;
+        margin: 50 auto;
+        background-color: #9fa8f3;
+    }
+    h1 {
+        font-size: 50;
+        text-align: center;
+        margin-bottom: 20px;
+        color: black;
+        text-shadow:
+            -1px -1px 0px rgb(255, 255, 255), 
+            -1px 1px 0px rgb(255, 255, 255),                    
+            1px -1px 0px rgb(255, 255, 255),                  
+            1px 0px 0px rgb(255, 255, 255);
+    }
+    h2 {
+        font-size: 30;
+        max-width: 1500px;
+        background-color: #9fa8f3;
+    }
+    h3 {
+        font-size: 50;
+        max-width: 430px;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        color: black;
+        text-shadow:
+            -1px -1px 0px rgb(255, 255, 255), 
+            -1px 1px 0px rgb(255, 255, 255),                    
+            1px -1px 0px rgb(255, 255, 255),                  
+            1px 0px 0px rgb(255, 255, 255);
+    }
+    h4 {
+        font-size: 30;
+        max-width: 1500px;
+        text-align: justify;
+    }
+    table, td, th {
+        border: 1px solid black;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th {
+        text-align: center;
+        height: 30px;
+    }
+    td {
+        text-align: center;
+        height: 30px;
+    }
+    tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(odd){
+        background-color: white;
+    }
+</style>
+
+<title> Resultados </title>
+
+<h1><b> Dados de entrada </b></h1>
+
+<table>
+    <tr>
+        <th> Ressalto </th>
+        <th> {{info_ressalto}} </th>
+    </tr>
+    <tr>
+        <th> Acabamento </th>
+        <th> {{info_acabamento}} </th>
+    </tr>
+    <tr>
+        <th> Temperatura </th>
+        <th> {{info_temperatura}} </th>
+    </tr>
+    <tr>
+        <th> Confiabilidade </th>
+        <th> {{info_confiabilidade}} </th>
+    </tr>
+    <tr>
+        <th> Tipo de carga </th>
+        <th> {{info_carga}} </th>
+    </tr>
+    <tr>
+        <th> Eixo em equilíbrio </th>
+        <th> {{info_equilibrio}} </th>
+    </tr>
+    <tr>
+        <th> Função desejada </th>
+        <th> {{info_funcao}} </th>
+    </tr>
+    <tr>
+        <th> Diâmetro </th>
+        <th> {{info_diametro}} </th>
+    </tr>
+    <tr>
+        <th> Fator de segurança </th>
+        <th> {{info_fator}} </th>
+    </tr>
+    <tr>
+        <th> Material </th>
+        <th> {{info_material}} </th>
+    </tr>
+</table>
+
+<head>
+    <h3><b> Resultados </b></h3>
+</head>
+
+<table>
+    <tr>
+        <th><h4> {{result}} </h4></th>
+    </tr>
+</table>
+
+<form class="p-3" action="index">
+    <button type="submit" class="btn btn-primary"> Voltar </button>
+</form>
+
+{% endblock %}

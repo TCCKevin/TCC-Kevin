@@ -1,0 +1,73 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    form {
+        max-width: 300px;
+        margin: 50 auto;
+        text-align: center;
+    }
+    body {
+        max-width: 1500px;
+        margin: 20 auto;
+        background-color: #9fa8f3;
+    }
+    h1 {
+        font-size: 60;
+        max-width: 300px;
+        margin: 50 auto;
+        text-align: center;
+        color: rgb(255, 0, 0);
+        text-shadow:
+            -1px -1px 0px rgb(0, 0, 0), 
+            -1px 1px 0px rgb(0, 0, 0),                    
+            1px -1px 0px rgb(0, 0, 0),                  
+            1px 0px 0px rgb(0, 0, 0);
+    }
+    h2 {
+        font-size: 30;
+        max-width: 1100px;
+        margin: 20 auto;
+    }
+    img {
+        display: block;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 100%;
+        background-color: rgb(245, 245, 245);
+    }
+    th {
+        text-align: center;
+        height: 30px;
+    }
+</style>
+
+<title> Erro </title>
+
+<head>
+    <h1><b> Erro </b></h1>
+</head>
+
+<table>
+    <tr>
+        <th><h2> Ops! Ocorreu algum erro. </h2></th>
+    </tr>
+    <tr>
+        <th><h2> Verifique se todos os campos estão preenchidos e tente novamente. </h2></th>
+    </tr>
+</table>
+
+<img src="https://pbs.twimg.com/profile_images/1248099858/11954453151817762013molumen_red_square_error_warning_icon_svg_med_400x400.png" width="200" height="200" alt="Falha">
+
+<form class="p-3" action="index">
+    <button type="submit" class="btn btn-primary"> Voltar </button>
+</form>
+
+{% endblock %}
